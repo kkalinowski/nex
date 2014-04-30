@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:lib12="http://schemas.kkalinowski.net/lib12">
+
+    <DataTemplate x:Key="FileShortNameTemplate">
+        <StackPanel Orientation="Horizontal" ToolTip="{Binding Name}">
+            <Image Source="{Binding FileIcon}" Width="16" Height="16" Margin="0,0,1,0"/>
+            <TextBlock Text="{Binding Name, Converter={lib12:SubstringConverter MaxLength=15}}" VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FileMediumNameTemplate">
+        <StackPanel Orientation="Vertical" ToolTip="{Binding Name}">
+            <Image Source="{Binding FileIcon}" Width="40" Height="40" Margin="0,0,1,0"/>
+            <TextBlock FontSize="11" Text="{Binding Name, Converter={lib12:SubstringConverter MaxLength=9}}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FileNameTemplate">
+        <StackPanel Orientation="Horizontal">
+            <Image Source="{Binding FileIcon}" Width="16" Height="16" Margin="0,0,1,0"/>
+            <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+        </StackPanel>
+    </DataTemplate>
+</ResourceDictionary>

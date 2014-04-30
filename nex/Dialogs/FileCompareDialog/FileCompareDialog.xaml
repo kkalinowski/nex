@@ -1,0 +1,41 @@
+﻿<elysium:Window x:Class="nex.Dialogs.FileCompareDialog.FileCompareDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mext="clr-namespace:nex.MarkupExtensions"
+        xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+        xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+        Title="Porównaj pliki" Height="600" Width="800" Icon="{mext:ImageSourceLoader CompareFilesIcon}"
+        ResizeMode="CanResizeWithGrip" ShowInTaskbar="True" Name="_FileCompareDialog" Style="{StaticResource DialogStyle}">
+    
+    <Grid Background="{StaticResource MainColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Center">
+            <TextBox Name="tLeftFile" Width="200" Height="21" Margin="3,0,0,0"
+                     Text="{Binding ElementName=_FileCompareDialog, Path=LeftFile}"/>
+            <Button Name="bChangeLeftFile" Content="Zmień" Margin="3,3,10,3" Click="bChangeFile_Click"/>
+            <TextBox Name="tRightFile" Width="200" Height="21" Margin="10,0,0,0"
+                     Text="{Binding ElementName=_FileCompareDialog, Path=RightFile}"/>
+            <Button Name="bChangeRightFile" Content="Zmień" Margin="3" Click="bChangeFile_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+            <Button Name="bCompare" Content="Porównaj" Margin="3,3,10,3" Width="100" IsDefault="True" Click="bCompare_Click" />
+            <Button Name="bClose" Content="Zamknij" Margin="3" Width="100" IsDefault="True" Click="bClose_Click" />
+        </StackPanel>
+        
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <RichTextBox Name="tLeftContent" Grid.Column="0" Margin="3" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"/>
+            <RichTextBox Name="tRightContent" Grid.Column="1" Margin="3" ScrollViewer.CanContentScroll="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" IsReadOnly="True"/>
+        </Grid>
+    </Grid>
+</elysium:Window>

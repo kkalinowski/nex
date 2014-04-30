@@ -1,0 +1,25 @@
+﻿<elysium:Window x:Class="nex.Dialogs.SearchDialog.SearchDialog"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mext="clr-namespace:nex.MarkupExtensions"
+                xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+                xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+                Title="Szukaj" Height="500" Width="500"
+                Style="{StaticResource DialogStyle}" KeyDown="KeyDown_FindDialog">
+
+    <Grid lib12:FluidGrid.Columns="20,*,80" lib12:FluidGrid.Rows="30,*,22" Background="{StaticResource MainColor}">
+        <Image Grid.Row="0" Grid.Column="0" Source="{mext:ImageSourceLoader SearchIcon}" Width="16" Height="16" Margin="3,0,0,0"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Name="tToFind" Margin="3"/>
+        <Button Grid.Row="0" Grid.Column="2" Name="bSearch" Content="Szukaj" Margin="3" Click="bSearch_Click" />
+
+        <ListBox Grid.Row="1" Grid.ColumnSpan="3" Name="lbFindItems" Margin="3,0,3,3"
+                 BorderThickness="1" Focusable="False"
+                 MouseDoubleClick="lbFindItems_MouseDoubleClick"/>
+
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="3" Name="sbStatus" Height="22">
+            <StatusBarItem>
+                <TextBlock Name="tStatus" Text="..." Margin="2,0"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</elysium:Window>

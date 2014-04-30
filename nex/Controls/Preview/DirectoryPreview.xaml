@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="nex.Controls.Preview.DirectoryPreview" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Height="Auto" Width="Auto" HorizontalAlignment="Stretch"
+    VerticalAlignment="Stretch" Name="_DirectoryPreview">
+
+    <Border CornerRadius="2" BorderBrush="{StaticResource BorderColor}" BorderThickness="1">
+        <ListBox Name="lbContent" ItemTemplate="{StaticResource FileNameTemplate}">
+            <ListBox.Template>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <ScrollViewer Focusable="False">
+                        <ItemsPresenter IsEnabled="False"/>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ListBox.Template>
+        </ListBox>
+    </Border>
+</UserControl>

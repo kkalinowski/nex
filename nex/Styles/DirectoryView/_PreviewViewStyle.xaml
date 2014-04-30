@@ -1,0 +1,81 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dv="clr-namespace:nex.Controls.DirectoryViews"
+                    xmlns:pv="clr-namespace:nex.Controls.Preview">
+
+    <Style x:Key="PreviewViewItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Margin" Value="10,10,10,0"/>
+        <Setter Property="Height" Value="150"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border x:Name="Border" CornerRadius="2" BorderBrush="{StaticResource BorderColor}" BorderThickness="0">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="21"/>
+                            </Grid.RowDefinitions>
+
+                            <pv:PreviewContainer Item="{Binding}" HorizontalAlignment="Center" MaxWidth="200"/>
+                            <TextBlock Name="tFileName" Text="{Binding Name}" Grid.Row="1" HorizontalAlignment="Center" Foreground="{StaticResource FontColor}"/>
+                        </Grid>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource SecondaryGradient}"/>
+                        </Trigger>
+
+                        <!-- Simple search -->
+                        <!-- Simple search enabled - match item -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsMoveUp}" Value="False"/>
+                                <Condition Binding="{Binding IsMatchingCriteria}" Value="True"/>
+                                <Condition Value="True" Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dv:DirectoryViewContainer}}, Path=SimpleSearch}"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="tFileName" Property="Foreground" Value="Green"/>
+                                <Setter TargetName="tFileName" Property="FontWeight" Value="Bold"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+
+                        <!-- Simple search enabled - un match item -->
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsMoveUp}" Value="False"/>
+                                <Condition Binding="{Binding IsMatchingCriteria}" Value="False"/>
+                                <Condition Value="True" Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dv:DirectoryViewContainer}}, Path=SimpleSearch}"/>
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter TargetName="tFileName" Property="Foreground" Value="Gray"/>
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="PreviewViewItemTemplate">
+        <Grid HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="21"/>
+            </Grid.RowDefinitions>
+                
+            <pv:PreviewContainer Item="{Binding}" HorizontalAlignment="Center"/>
+            <TextBlock Text="{Binding Name}" Grid.Row="1" HorizontalAlignment="Center"/>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

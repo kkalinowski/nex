@@ -1,0 +1,647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD8DA72D-3A6D-47A9-AE74-444DED7B758B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>nex</RootNamespace>
+    <AssemblyName>nex</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ExpressionBlendVersion>3.0.1927.0</ExpressionBlendVersion>
+    <ApplicationIcon>Icons\nex.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\nex.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\nex.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="edtFTPnet">
+      <HintPath>..\lib\edtFTPnet.dll</HintPath>
+    </Reference>
+    <Reference Include="Elysium">
+      <HintPath>..\lib\Elysium.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit">
+      <HintPath>..\packages\AvalonEdit.4.2.0.8783\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=6.1.37.86, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\lib\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="lib12">
+      <HintPath>..\packages\lib12.1.0.2\lib\lib12.dll</HintPath>
+    </Reference>
+    <Reference Include="lib12.WPF">
+      <HintPath>..\packages\lib12.WPF.1.0.0\lib\lib12.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\lib12.WPF.1.0.0\lib\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\lib\Microsoft.Windows.Shell.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\lib12.WPF.1.0.0\lib\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behaviors\DeselectListBox.cs" />
+    <Compile Include="Behaviors\DialogBehavior.cs" />
+    <Compile Include="Commands\CancelOperationCommand.cs" />
+    <Compile Include="Commands\UndoOperationCommand.cs" />
+    <Compile Include="Controls\OperationPresentation\OperationView.xaml.cs">
+      <DependentUpon>OperationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\FileTypeDiscover.cs" />
+    <Compile Include="Converters\TaskBarProgressStateConverter.cs" />
+    <Compile Include="Dialogs\DirectorySynchronizeDialog\DirectorySynchronizeDialog.xaml.cs">
+      <DependentUpon>DirectorySynchronizeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MessageBoxDialogs\InputDialog.xaml.cs">
+      <DependentUpon>InputDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DirectoryView\DirectoryViewType.cs" />
+    <Compile Include="Operations\OperationErrorEventArgs.cs" />
+    <Compile Include="Utilities\DialogExtension.cs" />
+    <Page Include="Controls\OperationPresentation\OperationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CommandLineBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\AccountDialogLogic\AccountDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\AccountManagerDialog\AccountManagerDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\FileCompareDialog\FileCompareDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\DirectorySynchronizeDialog\DirectorySynchronizeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\MessageBoxDialogs\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\SearchDialog\SearchDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\MultiRenameDialog\MultiRenameDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\FileExistDialog\FileExistDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\CompressDialog\CompressDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DirectoryViews\BigIconsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DirectoryViews\DetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DirectoryViews\DirectoryViewContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\DirectoryViews\ListDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DirectoryViews\PreviewView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DirectoryViews\SmallIconsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\DirectoryViews\ThreeColumnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialogs\RenameDialog\RenameDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Preview\DirectoryPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preview\ImagePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Preview\MoveUpPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preview\PdfPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preview\PreviewContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Preview\PreviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Preview\SourceCodePreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Preview\TextPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Preview\AudioVideoPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Icons\NetworkIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icons\SecondaryToolsIcons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Icons\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icons\MainIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icons\ViewIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ImageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DirectoryView\BigIconsDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CommandButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Icons\MainToolsIcons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DirectoryView\FileNameTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\GroupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DirectoryView\_PreviewViewStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DirectoryView\SmallIconsDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\DirectoryView\DetailsDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\TabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DirectoryView\ListDirectoryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Accounts\Account.cs" />
+    <Compile Include="Accounts\AccountManager.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Commands\ChangeViewCommand.cs" />
+    <Compile Include="Commands\ComputeCRCCommand.cs" />
+    <Compile Include="Commands\CompareFilesCommand.cs" />
+    <Compile Include="Commands\ClipboardCopyCommand.cs" />
+    <Compile Include="Commands\ClipboardCutCommand.cs" />
+    <Compile Include="Commands\ClipboardPasteCommand.cs" />
+    <Compile Include="Commands\OpenPowerShellCommand.cs" />
+    <Compile Include="Commands\OpenConsoleCommand.cs" />
+    <Compile Include="Commands\FinishSharingDirectoryCommand.cs" />
+    <Compile Include="Commands\ShareDirectoryCommand.cs" />
+    <Compile Include="Commands\NewAccountCommand.cs" />
+    <Compile Include="Commands\ManageAccountsCommand.cs" />
+    <Compile Include="Commands\FTPConnectDefaultCommand.cs" />
+    <Compile Include="Commands\FTPConnectCommand.cs" />
+    <Compile Include="Commands\SyncDirectoriesCommand.cs" />
+    <Compile Include="Commands\UnzipCommand.cs" />
+    <Compile Include="Commands\ZipCommand.cs" />
+    <Compile Include="Commands\EncryptCommand.cs" />
+    <Compile Include="Commands\SearchCommand.cs" />
+    <Compile Include="Commands\DynamicCommand.cs" />
+    <Compile Include="Commands\MoveForwardCommand.cs" />
+    <Compile Include="Commands\MoveBackCommand.cs" />
+    <Compile Include="Commands\MoveUpCommand.cs" />
+    <Compile Include="Commands\OperationCommand.cs" />
+    <Compile Include="Commands\StaticCommand.cs" />
+    <Compile Include="Commands\UnselectAllCommand.cs" />
+    <Compile Include="Commands\SelectAllCommand.cs" />
+    <Compile Include="Commands\PreviewCommand.cs" />
+    <Compile Include="Commands\EditCommand.cs" />
+    <Compile Include="Commands\DeleteCommand.cs" />
+    <Compile Include="Commands\NewDirectoryCommand.cs" />
+    <Compile Include="Commands\MoveCommand.cs" />
+    <Compile Include="Commands\CopyCommand.cs" />
+    <Compile Include="Commands\RenameCommand.cs" />
+    <Compile Include="Dialogs\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CommandLineBox.xaml.cs">
+      <DependentUpon>CommandLineBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AccountDialogLogic\AccountDialog.xaml.cs">
+      <DependentUpon>AccountDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\AccountManagerDialog\AccountManagerDialog.xaml.cs">
+      <DependentUpon>AccountManagerDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DirectorySynchronizeDialog\DirectorySynchronizeResult.cs" />
+    <Compile Include="Dialogs\FileCompareDialog\FileCompareDialog.xaml.cs">
+      <DependentUpon>FileCompareDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CompressDialog\CompressDialog.xaml.cs">
+      <DependentUpon>CompressDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectoryViews\BigIconsView.xaml.cs">
+      <DependentUpon>BigIconsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DirectoryView\DirectoryViewContainerViewModel.cs" />
+    <Compile Include="DirectoryView\DirectoryViewModel.cs" />
+    <Compile Include="Controls\DirectoryViews\ListDirectoryView.xaml.cs">
+      <DependentUpon>ListDirectoryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectoryViews\PreviewView.xaml.cs">
+      <DependentUpon>PreviewView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectoryViews\SmallIconsView.xaml.cs">
+      <DependentUpon>SmallIconsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\DirectoryPreview.xaml.cs">
+      <DependentUpon>DirectoryPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\MoveUpPreview.xaml.cs">
+      <DependentUpon>MoveUpPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\PdfPreview.xaml.cs">
+      <DependentUpon>PdfPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\SourceCodePreview.xaml.cs">
+      <DependentUpon>SourceCodePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ActiveColorConverter.cs" />
+    <Compile Include="Converters\TimeToStringConverter.cs" />
+    <Compile Include="FileSystem\FTP\FTPFileComparer.cs" />
+    <Compile Include="FileSystem\Windows\CopyFileCallback.cs" />
+    <Compile Include="FileSystem\Windows\CopyFileCallbackAction.cs" />
+    <Compile Include="FileSystem\Windows\CopyFileOptions.cs" />
+    <Compile Include="FileSystem\Windows\HookEventArgs.cs" />
+    <Compile Include="FileSystem\Windows\HookType.cs" />
+    <Compile Include="FileSystem\Windows\LocalWindowsHook.cs" />
+    <Compile Include="FileSystem\Windows\MoveFileOptions.cs" />
+    <Compile Include="FileSystem\Windows\ShellContextMenuException.cs" />
+    <Compile Include="FileSystem\Windows\ShellHelper.cs" />
+    <Compile Include="FileSystem\Windows\WindowsSharing.cs" />
+    <Compile Include="Installer.cs" />
+    <Compile Include="MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\ElysiumWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Dialogs\DirectorySynchronizeDialog\DirectoryComparison.cs" />
+    <Compile Include="Dialogs\DirectorySynchronizeDialog\DirectoryComparisonResult.cs" />
+    <Compile Include="Dialogs\SearchDialog\SearchDialog.xaml.cs">
+      <DependentUpon>SearchDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MultiRenameDialog\MultiRenameDialog.xaml.cs">
+      <DependentUpon>MultiRenameDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\MultiRenameDialog\MultiRenameItem.cs" />
+    <Compile Include="Dialogs\FileExistDialog\FileExistDalogResult.cs" />
+    <Compile Include="Dialogs\FileExistDialog\FileExistDialog.xaml.cs">
+      <DependentUpon>FileExistDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectoryViews\DetailsView.xaml.cs">
+      <DependentUpon>DetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectoryViews\DirectoryViewContainer.xaml.cs">
+      <DependentUpon>DirectoryViewContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DirectoryViews\DirectoryViewItemComparer.cs" />
+    <Compile Include="Controls\DirectoryViews\DirectoryViewItemNameComparer.cs" />
+    <Compile Include="Controls\DirectoryViews\IDirectoryView.cs" />
+    <Compile Include="DirectoryView\MoveUpObject.cs" />
+    <Compile Include="Controls\DirectoryViews\ThreeColumnView.xaml.cs">
+      <DependentUpon>ThreeColumnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\FileContentType.cs" />
+    <Compile Include="Controls\Preview\ImagePreview.xaml.cs">
+      <DependentUpon>ImagePreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\PreviewContainer.xaml.cs">
+      <DependentUpon>PreviewContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\PreviewWindow.xaml.cs">
+      <DependentUpon>PreviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\TextPreview.xaml.cs">
+      <DependentUpon>TextPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Preview\AudioVideoPreview.xaml.cs">
+      <DependentUpon>AudioVideoPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\DiskSizeConverter.cs" />
+    <Compile Include="FileSystem\FileSystemRoot.cs" />
+    <Compile Include="FileSystem\FTP\FTPFile.cs" />
+    <Compile Include="FileSystem\FTP\FTPFileSystem.cs" />
+    <Compile Include="FileSystem\FTP\FTPRoot.cs" />
+    <Compile Include="FileSystem\Windows\WindowsContextMenu.cs" />
+    <Compile Include="FileSystem\Windows\WindowsDrive.cs" />
+    <Compile Include="MainViewModel.cs" />
+    <Compile Include="MarkupExtensions\IconLoader.cs" />
+    <Compile Include="MarkupExtensions\ImageSourceLoader.cs" />
+    <Compile Include="OperationsManager.cs" />
+    <Compile Include="Operations\CopyOperation.cs" />
+    <Compile Include="Operations\DeleteOperation.cs" />
+    <Compile Include="Operations\DirectorySynchronizeOperation.cs" />
+    <Compile Include="Operations\MoveOperation.cs" />
+    <Compile Include="Operations\MultiFileOperation.cs" />
+    <Compile Include="Operations\MultiRenameOperation.cs" />
+    <Compile Include="Operations\NewFolderOperation.cs" />
+    <Compile Include="Operations\OperationBase.cs" />
+    <Compile Include="FileSystem\FileSize.cs" />
+    <Compile Include="FileSystem\FileSizeUnit.cs" />
+    <Compile Include="FileSystem\Windows\WindowsFileSystemApi.cs" />
+    <Compile Include="FileSystem\FileSystemBase.cs" />
+    <Compile Include="FileSystem\Windows\WindowsFile.cs" />
+    <Compile Include="DirectoryView\IDirectoryViewItem.cs" />
+    <Compile Include="FileSystem\PathExt.cs" />
+    <Compile Include="Dialogs\RenameDialog\RenameDialog.xaml.cs">
+      <DependentUpon>RenameDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FileSystem\Windows\WindowsFileSystem.cs" />
+    <Compile Include="HistoryLogic\History.cs" />
+    <Compile Include="HistoryLogic\HistoryGlobal.cs" />
+    <Compile Include="Operations\RenameOperation.cs" />
+    <Compile Include="PathsManager\PathsManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Utilities\EmptyDelegate.cs" />
+    <Compile Include="Utilities\HashAlgorithms.cs" />
+    <Compile Include="Utilities\MessageService.cs" />
+    <Compile Include="Utilities\PropertyObserver.cs" />
+    <Compile Include="Utilities\Serialization\ISerializationHelperUser.cs" />
+    <Compile Include="Utilities\Serialization\SerializationData.cs" />
+    <Compile Include="Utilities\Serialization\SerializationHelper.cs" />
+    <Compile Include="Utilities\Utility.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <Resource Include="Icons\nex.ico" />
+    <Content Include="SyntaxtHighlighting\sql.xshd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="SyntaxtHighlighting\ruby.xshd" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

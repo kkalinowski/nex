@@ -1,0 +1,50 @@
+﻿<elysium:Window x:Class="nex.Dialogs.MultiRenameDialog.MultiRenameDialog"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mext="clr-namespace:nex.MarkupExtensions"
+                xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+                xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+                Name="_MultiRenameDialog" Title="Narzędzie wielokrotnej zmiany"
+                Height="350" Width="400" Style="{StaticResource DialogStyle}">
+
+    <Grid Background="{StaticResource MainColor}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="105"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Wzorzec zmiany" Margin="2">
+            <Grid Grid.Row="0" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="23"/>
+                </Grid.RowDefinitions>
+
+                <TextBox Name="tPattern" Width="120" HorizontalAlignment="Left" Margin="2,2,2,2" TextChanged="tPattern_TextChanged" Text="[N]"/>
+                <Button Name="bNamePattern" Content="Nazwa [N]" Grid.Row="1" Width="100" HorizontalAlignment="Left" Margin="2" Click="bNamePattern_Click"/>
+                <Button Name="bCounterPattern" Content="Licznik [C]" Grid.Row="2" Width="100" HorizontalAlignment="Left" Margin="2" Click="bCounterPattern_Click" />
+            </Grid>
+        </GroupBox>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <Button Name="bStart" Content="Start" Width="100" Height="21" Margin="0,3" IsDefault="True" Click="bStart_Click" />
+            <Button Name="bCancel" Content="Anuluj" Width="100" Height="21" IsCancel="True" Click="bCancel_Click" />
+        </StackPanel>
+
+        <ListView Name="lvItems" BorderThickness="1" BorderBrush="{StaticResource BorderColor}"
+                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" Focusable="False"
+                  ItemsSource="{Binding ElementName=_MultiRenameDialog, Path=Items}">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                    <GridViewColumn Header="Stara nazwa" DisplayMemberBinding="{Binding Item.Name}" Width="200"/>
+                    <GridViewColumn Header="Nowa nazwa" DisplayMemberBinding="{Binding NewName}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</elysium:Window>

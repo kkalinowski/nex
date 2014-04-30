@@ -1,0 +1,28 @@
+﻿<elysium:Window x:Class="nex.Dialogs.AccountManagerDialog.AccountManagerDialog"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mext="clr-namespace:nex.MarkupExtensions"
+        xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+        xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+        Height="300" Width="400" Title="Zarządzanie kontami" Name="_AccountManagerDialog"
+        Style="{StaticResource DialogStyle}">
+    
+    <Grid Background="{StaticResource MainColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="115"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox Name="lbAccounts" Grid.Column="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="3"/>
+    
+        <StackPanel Orientation="Vertical" Margin="3" Grid.Column="1">
+            <Button Name="bSetDefault" Content="Ustaw domyślny" Click="bSetDefault_Click" Margin="1,1,1,5" Width="100"/>
+            <Button Name="bNew" Content="Nowe konto" Click="bNew_Click" Margin="1" Width="100"/>
+            <Button Name="bEdit" Content="Edytuj konto" Click="bEdit_Click" Margin="1" Width="100"/>
+            <Button Name="bDelete" Content="Usuń konto" Click="bDelete_Click" Margin="1" Width="100"/>
+            <Button Name="bOK" Content="OK" Click="bOK_Click" Margin="1,5,1,1" IsDefault="True" Width="100"/>
+            <Button Name="bCancel" Content="Anuluj" Click="bCancel_Click" Margin="1" IsCancel="True" Width="100"
+                    Visibility="{Binding ElementName=_AccountManagerDialog, Path=IsCancelable, Converter={lib12:BoolToVisibilityConverter}}"/>
+        </StackPanel>
+    </Grid>
+</elysium:Window>

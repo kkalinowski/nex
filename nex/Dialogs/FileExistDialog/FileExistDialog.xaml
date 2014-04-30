@@ -1,0 +1,20 @@
+﻿<elysium:Window x:Class="nex.Dialogs.FileExistDialog.FileExistDialog"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:mext="clr-namespace:nex.MarkupExtensions"
+                xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+                xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+                Title="Duplikat" Height="130" Width="420" Style="{StaticResource DialogStyle}">
+
+    <Grid Background="{StaticResource MainColor}" lib12:FluidGrid.Rows="100*,50*">
+        <TextBlock Grid.Row="0" Name="tInfo" Text="[IsDirectory] o nazwie [Name] już istnieje w katalogu [Destination]! Co chcesz zrobić?"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" FlowDirection="RightToLeft" HorizontalAlignment="Center">
+            <Button Name="bCancelOperation" Content="Anuluj" Width="100" Margin="1" Click="bCancelOperation_Click"/>
+            <Button Name="bDontOverride" Content="Nie zamieniaj" Width="100" Margin="1" Click="bDontOverride_Click"/>
+            <Button Name="bOverrideAll" Content="Zamień wszystkie" Width="100" Margin="1" Click="bOverrideAll_Click"/>
+            <Button Name="bOverride" Content="Zamień" Width="100" Margin="1" Click="bOverride_Click"/>
+        </StackPanel>
+    </Grid>
+</elysium:Window>

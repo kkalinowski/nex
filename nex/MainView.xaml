@@ -1,0 +1,203 @@
+﻿<elysium:Window x:Class="nex.MainView"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                xmlns:op="clr-namespace:nex.Controls.OperationPresentation"
+                xmlns:dv="clr-namespace:nex.DirectoryView"
+                xmlns:dvc="clr-namespace:nex.Controls.DirectoryViews"
+                xmlns:pv="clr-namespace:nex.Controls.Preview"
+                xmlns:ctrl="clr-namespace:nex.Controls"    
+                xmlns:cmd="clr-namespace:nex.Commands"
+                xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+                xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+                xmlns:local="clr-namespace:nex"
+                xmlns:utils="clr-namespace:nex.Utilities"
+                xmlns:views="clr-namespace:nex.Controls.DirectoryViews"
+                xmlns:mext="clr-namespace:nex.MarkupExtensions"
+                xmlns:conv="clr-namespace:nex.Converters"
+                Title="nex v0.8" Height="574" Width="750" Loaded="WindowLoaded"
+                Focusable="False" Name="_Main" BorderThickness="0"
+                DataContext="{lib12:Inject Type=local:MainViewModel}"
+                Background="{StaticResource AccentColor}">
+
+    <lib12:EventTranscriptions.Transcriptions>
+        <lib12:EventTranscription EventName="PreviewKeyDown" Command="{Binding KeyboardCommand}"/>
+    </lib12:EventTranscriptions.Transcriptions>
+
+    <elysium:Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressValue="{Binding OperationsManager.Progress}">
+            <TaskbarItemInfo.ProgressState>
+                <MultiBinding Converter="{conv:TaskBarProgressStateConverter}">
+                    <Binding Path="OperationsManager.Error"/>
+                    <Binding Path="OperationsManager.AreAnyOperationsOngoing"/>
+                </MultiBinding>
+            </TaskbarItemInfo.ProgressState>
+        </TaskbarItemInfo>
+    </elysium:Window.TaskbarItemInfo>
+
+    <Grid Name="gMain" Background="{StaticResource MainColor}" lib12:FluidGrid.Rows="Auto,*">
+        <Menu Grid.Row="0" Name="rMenu" Focusable="False">
+            <MenuItem Header="Plik" Visibility="Collapsed">
+                <MenuItem Header="O programie" ToolTip="Wyświetl dodatkowe informacje o programie" Click="About_Clicked"/>
+                <MenuItem Header="Zamknij" Icon="{mext:IconLoader LocalCloseIcon}" ToolTip="Zamknij program" Click="OnCloseApplication"/>
+            </MenuItem>
+
+            <MenuItem Header="Narzędzia główne" Focusable="False">
+                <MenuItem Name="bQATMoveUp" Header="W górę" Icon="{mext:IconLoader UpIcon}" Command="{lib12:Inject cmd:MoveUpCommand}" ToolTip="Ładuje katalog nadrzędny"/>
+                <MenuItem Name="bQATBack" Header="Wstecz" Icon="{mext:IconLoader BackIcon}" Command="{lib12:Inject cmd:MoveBackCommand}" ToolTip="Ładuje poprzedni katalog"/>
+                <MenuItem Name="bQATForward" Header="Naprzód" Icon="{mext:IconLoader ForwardIcon}" Command="{lib12:Inject cmd:MoveForwardCommand}" ToolTip="Ładuje kolejny katalog"/>
+
+                <Separator/>
+
+                <MenuItem Name="bClipboardCut" Header="Wytnij do schowka" Command="{lib12:Inject cmd:ClipboardCutCommand}" Icon="{mext:IconLoader ClipboardCutIcon}"
+                          ToolTip="Wycina plik/katalog do schowka"/>
+                <MenuItem Focusable="False" Name="bClipboardCopy" Header="Kopiuj do schowka" Command="{lib12:Inject cmd:ClipboardCopyCommand}" Icon="{mext:IconLoader ClipboardCopyIcon}" 
+                          ToolTip="Kopiuje plik/katalog do schowka"/>
+                <MenuItem Focusable="False" Name="bClipboardPaste" Header="Wklej z schowka" Command="{lib12:Inject cmd:ClipboardPasteCommand}" Icon="{mext:IconLoader ClipboardPasteIcon}"
+                          ToolTip="Wkleja plik/katalog z schowka"/>
+
+                <Separator/>
+
+                <MenuItem Focusable="False" Name="bFind" Header="Szukaj" Icon="{mext:IconLoader SearchIcon}" Command="{lib12:Inject cmd:SearchCommand}"
+                          ToolTip="Wyszukaje pliki i katalogi na dysku"/>
+                <MenuItem Focusable="False" Name="bView" Header="Podgląd" Icon="{mext:IconLoader PreviewIcon}" Command="{lib12:Inject cmd:PreviewCommand}"
+                          ToolTip="Szybki podgląd pliku, bez potrzeby otwierania zewnętrznego programu"/>
+                <MenuItem Focusable="False" Name="bEdit" Header="Edycja" Icon="{mext:IconLoader EditIcon}" Command="{lib12:Inject cmd:EditCommand}"
+                          ToolTip="Edytuje plik w domyślnym programie"/>
+                <MenuItem Focusable="False" Name="bRename" Header="Zmień nazwę" Icon="{mext:IconLoader RenameIcon}" Command="{lib12:Inject cmd:RenameCommand}"
+                          ToolTip="Zmienia nazwę pliku/katalogu"/>
+                <MenuItem Focusable="False" Name="bCopy" Header="Kopiuj" Icon="{mext:IconLoader CopyIcon}" Command="{lib12:Inject cmd:CopyCommand}"
+                          ToolTip="Kopiuje wybrane pliki/katalogi do drugiego panelu"/>
+                <MenuItem Name="bMove" Focusable="False" Header="Przenieś" Icon="{mext:IconLoader MoveIcon}" Command="{lib12:Inject cmd:MoveCommand}"
+                          ToolTip="Przenosi wybrane pliki/katalogi do drugiego panelu"/>
+                <MenuItem Focusable="False" Name="bNewDir" Icon="{mext:IconLoader NewDirectoryIcon}" Header="Nowy folder" Command="{lib12:Inject cmd:NewDirectoryCommand}"
+                          ToolTip="Tworzy nowy folder w aktualnym miejscu"/>
+                <MenuItem Name="bDelete" Header="Usuń" Icon="{mext:IconLoader DeleteIcon}" Command="{lib12:Inject cmd:DeleteCommand}"
+                          ToolTip="Usuwa plik/katalog z dysku"/>
+                
+                <Separator/>
+
+                <MenuItem Focusable="False" Name="bSelectAll" Header="Zaznacz wszystko" Icon="{mext:IconLoader SelectAllIcon}" Command="{lib12:Inject cmd:SelectAllCommand}"
+                          ToolTip="Zaznacz wszystkie pliki i katalogi" Visibility="Collapsed"/>
+                <MenuItem Focusable="False" Header="Odznacz wszystko" Icon="{mext:IconLoader UnselectAllIcon}" Command="{lib12:Inject cmd:UnselectAllCommand}"
+                          ToolTip="Odznacz wszystkie pliki i katalogi" Visibility="Collapsed"/>
+            </MenuItem>
+
+            <MenuItem Header="Narzędzia dodatkowe" Focusable="False">
+                <MenuItem Focusable="False" Name="bOpenCmd" Header="Otwórz tutaj linię poleceń" Command="{lib12:Inject cmd:OpenConsoleCommand}" Icon="{mext:IconLoader ConsoleIcon}"
+                          ToolTip="Otwiera linię poleceń w aktualnej lokalizacji"/>
+                <MenuItem Focusable="False" Name="bOpenPowershell" Header="Otwórz tutaj Powershell'a" Command="{lib12:Inject cmd:OpenPowerShellCommand}" Icon="{mext:IconLoader PowershellIcon}"
+                          ToolTip="Otwiera Powershell'a w aktualnej lokalizacji"/>
+                
+                <Separator/>
+                
+                <MenuItem Focusable="False" Name="bComputeMD5" Header="Oblicz MD5" Command="{lib12:Inject cmd:ComputeCRCCommand}" CommandParameter="{x:Static utils:HashAlgorithms.MD5}"
+                          Icon="{mext:IconLoader MD5Icon}" ToolTip="Oblicz sumę kontrolną MD5 dla danego pliku"/>
+                <MenuItem Focusable="False" Name="bComputeSHA1" Header="Oblicz SHA1" Command="{lib12:Inject cmd:ComputeCRCCommand}" CommandParameter="{x:Static utils:HashAlgorithms.SHA1}"
+                          Icon="{mext:IconLoader SHA1Icon}" ToolTip="Oblicz sumę kontrolną SHA1 dla danego pliku"/>
+                
+                <Separator/>
+                
+                <MenuItem Focusable="False" Name="bEncrypt" Header="Zaszyfruj" Command="{lib12:Inject cmd:EncryptCommand}" CommandParameter="encrypt"
+                          Icon="{mext:IconLoader EncryptIcon}" ToolTip="Szyfruje plik/katalog. Tylko aktualnie zalogowana osoba ma do niego dostęp"/>
+                <MenuItem Focusable="False" Name="bDecrypt" Header="Odszyfruj" Command="{lib12:Inject cmd:EncryptCommand}" CommandParameter="decrypt"
+                          Icon="{mext:IconLoader DecryptIcon}" ToolTip="Deszyfruje plik/katalog"/>
+                
+                <Separator/>
+                
+                <MenuItem Focusable="False" Name="bZip" Header="Spakuj" Command="{lib12:Inject cmd:ZipCommand}" Icon="{mext:IconLoader CompressIcon}"
+                          ToolTip="Pakuje wybrane pliki/katalogi do archiwum zip"/>
+                <MenuItem Header="Rozpakuj" Command="{lib12:Inject cmd:UnzipCommand}" Icon="{mext:IconLoader ExtractIcon}"
+                          ToolTip="Rozpakowuje archiwum zip"/>
+                
+                <Separator/>
+                
+                <MenuItem Focusable="False" Name="bSyncDirs" Header="Synchronizuj katalogi" Command="{lib12:Inject cmd:SyncDirectoriesCommand}" Icon="{mext:IconLoader SyncDirectoriesIcon}"
+                          ToolTip="Porównuje zawartość dwóch katalogów i pozwala zsynchronizować ich zawartość"/>
+                <MenuItem Focusable="False" Name="bCompareFiles" Header="Porównaj pliki" Icon="{mext:IconLoader CompareFilesIcon}" Command="{lib12:Inject cmd:CompareFilesCommand}"
+                          ToolTip="Porównuje zawartość dwóch plików" Visibility="Collapsed"/>
+            </MenuItem>
+
+            <!-- Sieć -->
+            <MenuItem Header="Sieć" Focusable="False">
+                <MenuItem Focusable="False" Name="bAccountManager" Header="Zarządzaj kontami" Command="{lib12:Inject cmd:ManageAccountsCommand}" Icon="{mext:IconLoader ManageAccountsIcon}"
+                          ToolTip="Dodawanie, edycja i usuwanie kont sieciowych"/>
+                <MenuItem Focusable="False" Name="bNewAccount" Header="Nowe konto" Command="{lib12:Inject cmd:NewAccountCommand}" Icon="{mext:IconLoader NewAccountIcon}"
+                          ToolTip="Tworzy nowe konto"/>
+                
+                <Separator/>
+
+                <MenuItem Focusable="False" Name="bFTPConnectDefault" Header="Podłącz do domyślnego serwera" Command="{lib12:Inject cmd:FTPConnectDefaultCommand}" Icon="{mext:IconLoader FTPIcon}"
+                          ToolTip="Łączy z serwerem FTP, który wcześniej został wybrany jako domyślny"/>
+                <MenuItem Focusable="False" Name="bFTPConnect" Header="Podłącz do serwera" Command="{lib12:Inject cmd:FTPConnectCommand}" Icon="{mext:IconLoader DefaultFTPIcon}"
+                          ToolTip="Łączy z wybranym serwerem FTP"/>
+
+                <Separator/>
+                
+                <MenuItem Focusable="False" Name="bShareDirectory" Header="Udostępnij folder" Command="{lib12:Inject cmd:ShareDirectoryCommand}" Icon="{mext:IconLoader ShareDirectoryIcon}"
+                          ToolTip="Udostępnia zaznaczony folder w sieci lokalnej"/>
+                <MenuItem Focusable="False" Name="bFinishSharingDirectory" Header="Zakończ udostępnianie" Command="{lib12:Inject cmd:FinishSharingDirectoryCommand}"
+                          Icon="{mext:IconLoader FinishSharingDirectoryIcon}" ToolTip="Kończy udostępnianie zaznaczonego folderu w sieci lokalnej"/>
+            </MenuItem>
+
+            <!--Widok-->
+            <MenuItem Header="Widok" Focusable="False">
+                <MenuItem Focusable="False" Name="bListView" Header="Lista" Command="{lib12:Inject cmd:ChangeViewCommand}" CommandParameter="{x:Static dv:DirectoryViewType.List}"
+                          Icon="{mext:IconLoader ListViewIcon}" ToolTip="Przełącz widok na listę"/>
+                <MenuItem Focusable="False" Name="bSmallIconsView" Header="Małe ikony" Command="{lib12:Inject cmd:ChangeViewCommand}" CommandParameter="{x:Static dv:DirectoryViewType.SmallIcons}"
+                          Icon="{mext:IconLoader SmallIconsViewIcon}" ToolTip="Przełącz widok na małe ikony"/>
+                <MenuItem Focusable="False" Name="bBigIconsView" Header="Duże ikony" Command="{lib12:Inject cmd:ChangeViewCommand}" CommandParameter="{x:Static dv:DirectoryViewType.BigIcons}"
+                          Icon="{mext:IconLoader BigIconsViewIcon}" ToolTip="Przełącz widok na duże ikony"/>
+                <MenuItem Focusable="False" Name="bDetailsView" Header="Szczegóły" Command="{lib12:Inject cmd:ChangeViewCommand}" CommandParameter="{x:Static dv:DirectoryViewType.Details}"
+                          Icon="{mext:IconLoader DetailsViewIcon}" ToolTip="Przełącz widok na listę szczegółową"/>
+            </MenuItem>
+        </Menu>
+
+        <op:OperationView Grid.Row="0" HorizontalAlignment="Right"/>
+
+        <Grid Grid.Row="1" Name="gDV" Height="Auto" VerticalAlignment="Stretch" Margin="2" lib12:FluidGrid.Columns="300*,Auto,300*">
+            <Border Grid.Column="0" CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource ActiveColor}" Margin="1">
+                <dvc:DirectoryViewContainer x:Name="dvLeft" Grid.Column="1" Width="Auto" Height="Auto" VerticalAlignment="Stretch" LostKeyboardFocus="ActiveDVChanged"
+                                            SerializationKey="dvLeft" DataContext="{Binding LeftDirectoryContainerViewModel}">
+                    <lib12:EventTranscriptions.Transcriptions>
+                        <lib12:EventTranscription EventName="PreviewMouseDown" Command="{Binding DataContext.MouseCommand, RelativeSource={RelativeSource AncestorType=elysium:Window}}"/>
+                    </lib12:EventTranscriptions.Transcriptions>
+                </dvc:DirectoryViewContainer>
+            </Border>
+            
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <lib12:ImageButton Content="{mext:ImageSourceLoader UpIcon}" Command="{lib12:Inject cmd:MoveUpCommand}" Margin="3"
+                                   ToolTip="Ładuje katalog nadrzędny"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader BackIcon}" Command="{lib12:Inject cmd:MoveBackCommand}" Margin="3,0,3,3"
+                                   ToolTip="Ładuje poprzedni katalog"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader ForwardIcon}" Command="{lib12:Inject cmd:MoveForwardCommand}" Margin="3,0,3,3"
+                                   ToolTip="Ładuje kolejny katalog"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader SearchIcon}" Command="{lib12:Inject cmd:SearchCommand}" Margin="3,0,3,3"
+                                   ToolTip="Wyszukaje pliki i katalogi na dysku"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader PreviewIcon}" Command="{lib12:Inject cmd:PreviewCommand}" Margin="3,10,3,3"
+                                   ToolTip="Szybki podgląd pliku, bez potrzeby otwierania zewnętrznego programu"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader EditIcon}" Command="{lib12:Inject cmd:EditCommand}" Margin="3,0,3,3"
+                                   ToolTip="Edytuje plik w domyślnym programie"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader RenameIcon}" Command="{lib12:Inject cmd:RenameCommand}" Margin="3,10,3,3"
+                                   ToolTip="Zmienia nazwę pliku/katalogu"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader CopyIcon}" Command="{lib12:Inject cmd:CopyCommand}" Margin="3,0,3,3"
+                                   ToolTip="Kopiuje wybrane pliki/katalogi do drugiego panelu"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader MoveIcon}" Command="{lib12:Inject cmd:MoveCommand}" Margin="3,0,3,3"
+                                   ToolTip="Przenosi wybrane pliki/katalogi do drugiego panelu"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader NewDirectoryIcon}" Command="{lib12:Inject cmd:NewDirectoryCommand}" Margin="3,0,3,3"
+                                   ToolTip="Tworzy nowy folder w aktualnym miejscu"/>
+                <lib12:ImageButton Content="{mext:ImageSourceLoader DeleteIcon}" Command="{lib12:Inject cmd:DeleteCommand}" Margin="3,0,3,3"
+                                   ToolTip="Usuwa plik/katalog z dysku"/>
+            </StackPanel>
+
+            <Border Grid.Column="2" CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource ActiveColor}" Margin="1">
+                <dvc:DirectoryViewContainer x:Name="dvRight" Grid.Column="2" Width="Auto" Height="Auto" VerticalAlignment="Stretch" LostKeyboardFocus="ActiveDVChanged"
+                                            SerializationKey="dvRight" DataContext="{Binding RightDirectoryContainerViewModel}">
+                    <lib12:EventTranscriptions.Transcriptions>
+                        <lib12:EventTranscription EventName="PreviewMouseDown" Command="{Binding DataContext.MouseCommand, RelativeSource={RelativeSource AncestorType=elysium:Window}}"/>
+                    </lib12:EventTranscriptions.Transcriptions>
+                </dvc:DirectoryViewContainer>
+            </Border>
+        </Grid>
+    </Grid>
+</elysium:Window>

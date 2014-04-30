@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="nex.Controls.DirectoryViews.DetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:lib12="http://schemas.kkalinowski.net/lib12">
+
+    <DataGrid SelectionMode="Extended" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" GridLinesVisibility="None"
+                  AutoGenerateColumns="False" RowStyle="{StaticResource DetailsDirectoryViewItemStyle}">
+        <lib12:EventTranscriptions.Transcriptions>
+            <lib12:EventTranscription EventName="MouseDoubleClick" Command="{Binding ExecuteItemCommand}"/>
+        </lib12:EventTranscriptions.Transcriptions>
+        <i:Interaction.Behaviors>
+            <lib12:DataGridSelectedItemsBinding SelectedItems="{Binding SelectedItems, Mode=OneWayToSource}"/>
+        </i:Interaction.Behaviors>
+
+        <DataGrid.Columns>
+            <DataGridTemplateColumn Header="Nazwa" CellTemplate="{StaticResource FileNameTemplate}" Width="200"/>
+            <DataGridTextColumn Header="Data modyfikacji" Binding="{Binding LastModifiedTime, StringFormat={}{0:yyyy-MM-dd hh:mm}}"/>
+            <DataGridTextColumn Header="Atrybuty" Binding="{Binding Attributes}"/>
+            <DataGridTextColumn Header="Rozmiar" Binding="{Binding Size}"/>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

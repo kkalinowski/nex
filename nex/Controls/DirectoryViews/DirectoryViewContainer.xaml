@@ -1,0 +1,155 @@
+﻿<UserControl x:Class="nex.Controls.DirectoryViews.DirectoryViewContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:dv="clr-namespace:nex.DirectoryView"
+             xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+             xmlns:conv="clr-namespace:nex.Converters"
+             xmlns:views="clr-namespace:nex.Controls.DirectoryViews"
+             xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+             xmlns:mext="clr-namespace:nex.MarkupExtensions"
+             xmlns:b="clr-namespace:nex.Behaviors"
+             Height="300" Width="300" Name="_DirectoryViewContainer" AllowDrop="True" Drop="_DirectoryViewContainer_Drop"
+             LostKeyboardFocus="_DirectoryViewContainer_LostKeyboardFocus" MouseLeftButtonDown="_DirectoryViewContainer_MouseLeftButtonDown">
+
+    <lib12:EventTranscriptions.Transcriptions>
+        <lib12:EventTranscription EventName="KeyDown" Command="{Binding KeyboardCommand}"/>
+        <lib12:EventTranscription EventName="PreviewMouseRightButtonUp" Command="{Binding RightMouseCommand}"/>
+        <lib12:EventTranscription EventName="Drop" Command="{Binding DropCommand}"/>
+    </lib12:EventTranscriptions.Transcriptions>
+
+    <Border BorderBrush="{Binding IsActive, Converter={conv:ActiveColorConverter}}" BorderThickness="2.5">
+        <Grid lib12:FluidGrid.Columns="20,*" lib12:FluidGrid.Rows="30,Auto,270*">
+            <Grid.ContextMenu>
+                <ContextMenu Name="dropMenu" IsOpen="{Binding PlacementTarget.DataContext.IsDropMenuOpen}">
+                    <MenuItem Name="miCopy" Header="Kopiuj" Icon="{mext:IconLoader CopyIcon}" 
+                              Command="{Binding PlacementTarget.DataContext.DropCopyCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                    <MenuItem Name="miMove" Header="Przenieś" Icon="{mext:IconLoader MoveIcon}" 
+                              Command="{Binding PlacementTarget.DataContext.DropMoveCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                    <Separator/>
+                    <MenuItem Name="miCancel" Header="Anuluj" Icon="{mext:IconLoader CancelIcon}"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Name="tPath" DockPanel.Dock="Left" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding ActiveView.FullPath}"/>
+            <Image Grid.Row="1" Grid.Column="0" Source="{mext:ImageSourceLoader SearchIcon}" Width="16" Height="16" Margin="3,0,0,0"
+                   Visibility="{Binding Path=ActiveView.IsSearchEnabled, Converter={lib12:BoolToVisibilityConverter}}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="tSearch" Margin="3" Text="{Binding ActiveView.SearchText}"
+                     Visibility="{Binding Path=ActiveView.IsSearchEnabled, Converter={lib12:BoolToVisibilityConverter}}"/>
+
+            <TabControl Grid.Row="2" Grid.ColumnSpan="2" Name="tcViews" Focusable="False" ItemsSource="{Binding Directories}" SelectedItem="{Binding ActiveView}">
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DirectoryName, Converter={lib12:SubstringConverter MaxLength=15}}" Foreground="{StaticResource FontColor}"/>
+                            <lib12:ImageButton Command="{Binding DataContext.CloseTabCommand, RelativeSource={RelativeSource AncestorType=TabControl}}" CommandParameter="{Binding}"
+                                               Visibility="{Binding IsAddTab, Converter={lib12:BoolToVisibilityConverter Negate=True}}"
+                                               Width="8" Height="8" Margin="3,1,0,1" HorizontalAlignment="Center" Content="{mext:ImageSourceLoader LocalCloseIcon}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding}">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ViewType}" Value="{x:Static dv:DirectoryViewType.List}">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <views:ListDirectoryView/>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ViewType}" Value="{x:Static dv:DirectoryViewType.SmallIcons}">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <views:SmallIconsView/>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ViewType}" Value="{x:Static dv:DirectoryViewType.BigIcons}">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <views:BigIconsView/>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ViewType}" Value="{x:Static dv:DirectoryViewType.Details}">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <views:DetailsView/>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
+
+            <Popup PlacementTarget="{Binding ElementName=tPath}" Width="600" Height="450">
+                <i:Interaction.Behaviors>
+                    <lib12:FluidPopup StaysOpenFor="50" CloseAfterClick="True"/>
+                </i:Interaction.Behaviors>
+                <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="1">
+                    <StackPanel Width="598" Height="450" Orientation="Vertical" Background="{StaticResource MainColor}">
+                        <Grid lib12:FluidGrid.Columns="30,*">
+                            <Image Grid.Column="0" Name="iRoot" MouseLeftButtonDown="RootClicked" Margin="3,0,0,0" Source="{Binding ActiveView.FileSystem.Root.Icon}"/>
+                            <elysium:ProgressBar Grid.Column="1" Name="pbTakenPlaceRoot" Maximum="100" MouseLeftButtonDown="RootClicked" HorizontalContentAlignment="Left"
+                                                 Value="{Binding ActiveView.FileSystem.Root.TakenPercent, Mode=OneWay}" Margin="3,3,5,3"
+                                                 Visibility="{Binding Path=ActiveView.FileSystem.IsWindowsFileSystem, Converter={lib12:BoolToVisibilityConverter}}"/>
+                        </Grid>
+
+                        <Grid lib12:FluidGrid.StackColumns="3">
+                            <GroupBox Grid.Column="0" Margin="3" Header="Systemowe">
+                                <ListBox Height="400" ItemsSource="{Binding PathsManager.SystemPaths}" ItemTemplate="{StaticResource FileNameTemplate}"
+                                         SelectedItem="{Binding SelectedPath, Mode=OneWayToSource}" ItemContainerStyle="{x:Null}">
+                                    <i:Interaction.Behaviors>
+                                        <b:DeselectListBox/>
+                                    </i:Interaction.Behaviors>
+                                </ListBox>
+                            </GroupBox>
+                            <GroupBox Grid.Column="1" Margin="0,3,3,3" Header="Historia">
+                                <ListBox ItemsSource="{Binding PathsManager.History}" ItemTemplate="{StaticResource FileNameTemplate}"
+                                         SelectedItem="{Binding SelectedPath, Mode=OneWayToSource}">
+                                    <i:Interaction.Behaviors>
+                                        <b:DeselectListBox/>
+                                    </i:Interaction.Behaviors>
+                                </ListBox>
+                            </GroupBox>
+                            <GroupBox Grid.Column="2" Margin="0,3,3,3">
+                                <GroupBox.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Ulubione" Margin="0,0,1,0"/>
+                                        <lib12:ImageButton Command="{Binding HandleFavoritePathCommand}" Content="{mext:ImageSourceLoader AddFavoriteIcon}" Width="16" Height="16"
+                                                           Visibility="{Binding ActiveView.IsFavoritePath, Converter={lib12:BoolToVisibilityConverter Negate=True}}"/>
+                                        <lib12:ImageButton Command="{Binding HandleFavoritePathCommand}" Content="{mext:ImageSourceLoader RemoveFavoriteIcon}" Width="16" Height="16"
+                                                           ShadowBrush="{StaticResource ErrorColor}" Visibility="{Binding ActiveView.IsFavoritePath, Converter={lib12:BoolToVisibilityConverter}}"/>
+                                    </StackPanel>
+                                </GroupBox.Header>
+                                <ListBox ItemsSource="{Binding PathsManager.Favorites}" ItemTemplate="{StaticResource FileNameTemplate}"
+                                         SelectedItem="{Binding SelectedPath, Mode=OneWayToSource}">
+                                    <i:Interaction.Behaviors>
+                                        <b:DeselectListBox/>
+                                    </i:Interaction.Behaviors>
+                                </ListBox>
+                            </GroupBox>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Popup>
+        </Grid>
+    </Border>
+</UserControl>

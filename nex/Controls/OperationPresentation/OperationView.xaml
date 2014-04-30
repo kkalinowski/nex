@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="nex.Controls.OperationPresentation.OperationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+             xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+             xmlns:mext="clr-namespace:nex.MarkupExtensions"
+             xmlns:op="clr-namespace:nex.Operations"
+             xmlns:conv="clr-namespace:nex.Converters"
+             xmlns:cmd="clr-namespace:nex.Commands">
+
+    <Grid>
+        <Grid Grid.Row="0" Name="gOperations" lib12:FluidGrid.Columns="200,34" HorizontalAlignment="Right">
+            <elysium:ProgressBar Grid.Column="0" Width="200" Maximum="1" Value="{Binding OperationsManager.Progress}"
+                                 Visibility="{Binding OperationsManager.AreAnyOperationsOngoing, Converter={lib12:BoolToVisibilityConverter}}">
+                <elysium:ProgressBar.LayoutTransform>
+                    <RotateTransform Angle="180"/>
+                </elysium:ProgressBar.LayoutTransform>
+            </elysium:ProgressBar>
+            <Image Grid.Column="1" Width="28" Height="28" Source="{StaticResource OperationsIcon}" Margin="3,0"/>
+        </Grid>
+
+        <Popup PlacementTarget="{Binding ElementName=gOperations}" Width="306" Height="306">
+            <i:Interaction.Behaviors>
+                <lib12:FluidPopup StaysOpenFor="300" CloseAfterClick="False"/>
+            </i:Interaction.Behaviors>
+            
+            <Border BorderBrush="{StaticResource BorderColor}" BorderThickness="1" Background="{StaticResource MainColor}">
+                <Grid lib12:FluidGrid.StackRows="2" Width="306" Height="306" Margin="3">
+                    <GroupBox Grid.Row="0" Header="W trakcie:" Width="298" HorizontalAlignment="Left">
+                        <ItemsControl ItemsSource="{Binding OperationsManager.Pending}" HorizontalContentAlignment="Stretch">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" VerticalScrollBarVisibility="Auto">
+                                        <ItemsPresenter />
+                                    </ScrollViewer>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid lib12:FluidGrid.Columns="*,*,40" lib12:FluidGrid.Rows="*,*" Width="298" Height="20">
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding OperationName}"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding EstimatedEnd, Converter={conv:TimeToStringConverter}}"/>
+                                        <elysium:ProgressBar Grid.Row="1" Grid.ColumnSpan="2" Value="{Binding Progress}" Maximum="1"/>
+                                        <lib12:ImageButton Grid.RowSpan="2" Grid.Column="2" Content="{mext:ImageSourceLoader CancelIcon}" Margin="3,0" VerticalAlignment="Center"
+                                                           Command="{lib12:Inject cmd:CancelOperationCommand}" CommandParameter="{Binding}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </GroupBox>
+                    <GroupBox Grid.Row="1" Header="Ukończone:" Width="298" Height="145" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <ItemsControl ItemsSource="{Binding OperationsManager.Finished}" HorizontalContentAlignment="Stretch" Width="287">
+                            <ItemsControl.Template>
+                                <ControlTemplate>
+                                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                                        <ItemsPresenter />
+                                    </ScrollViewer>
+                                </ControlTemplate>
+                            </ItemsControl.Template>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid lib12:FluidGrid.Columns="*,Auto" Height="20">
+                                        <TextBlock Grid.Column="0" Text="{Binding OperationName}"/>
+                                        <lib12:ImageButton Grid.Column="1" Content="{mext:ImageSourceLoader UndoIcon}" Margin="3,0" VerticalAlignment="Center"
+                                                           Visibility="{Binding CanUndo, Converter={lib12:BoolToVisibilityConverter}}"
+                                                           Command="{lib12:Inject cmd:UndoOperationCommand}" CommandParameter="{Binding}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </GroupBox>
+                </Grid>
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

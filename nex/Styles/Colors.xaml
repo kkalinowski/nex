@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <SolidColorBrush x:Key="MainColor" Color="White"/>
+    <SolidColorBrush x:Key="FontColor" Color="Black"/>
+    <SolidColorBrush x:Key="AccentColor" Color="DeepSkyBlue"/>
+    <SolidColorBrush x:Key="MouseOverColor" Color="SkyBlue"/>
+    <SolidColorBrush x:Key="BorderColor" Color="SkyBlue"/>
+    <SolidColorBrush x:Key="MatchColor" Color="Green"/>
+    <SolidColorBrush x:Key="DontMatchColor" Color="Gray"/>
+    <SolidColorBrush x:Key="ActiveColor" Color="DeepSkyBlue"/>
+    <SolidColorBrush x:Key="ErrorColor" Color="OrangeRed"/>
+</ResourceDictionary>

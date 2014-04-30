@@ -1,0 +1,61 @@
+﻿<elysium:Window x:Class="nex.Dialogs.DirectorySynchronizeDialog.DirectorySynchronizeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mext="clr-namespace:nex.MarkupExtensions"
+        xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+        xmlns:elysium="http://schemas.codeplex.com/elysium/theme"
+        Title="Synchronizuj katalogi" Height="300" Width="710"
+        Style="{StaticResource DialogStyle}" Name="_DirectorySynchronizeDialog">
+
+    <Grid Background="{StaticResource MainColor}" lib12:FluidGrid.Columns="*,*" lib12:FluidGrid.Rows="30,30,*">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+            <TextBox Name="tLeftDir" Width="200" Height="21" Margin="3" VerticalAlignment="Center"
+                     Text="{Binding ElementName=_DirectorySynchronizeDialog, Path=LeftDir}"/>
+            <Button Name="bChangeLeftDir" Content="Zmień" Margin="3,3,10,3" Click="bChangeDir_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right">
+            <TextBox Name="tRightDir" Width="200" Height="21" Margin="3" VerticalAlignment="Center"
+                     Text="{Binding ElementName=_DirectorySynchronizeDialog, Path=RightDir}"/>
+            <Button Name="bChangeRightDir" Content="Zmień" Margin="3" Click="bChangeDir_Click"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <Button Name="bCompare" Content="Porównaj" Margin="3,3,10,3" Width="100" IsDefault="True" Click="bCompare_Click" />
+            <Button Name="bSynchronize" Content="Synchronizuj" Margin="0,3" Width="100" IsDefault="True" Click="bSynchronize_Click" />
+            <Button Name="bCancel" Content="Anuluj" Margin="3" Width="100" IsCancel="True" Click="bCancel_Click" />
+        </StackPanel>
+
+        <ListView Name="lvCompare" Grid.Row="2" Grid.ColumnSpan="2" Margin="3">
+            <ListView.Resources>
+                <DataTemplate x:Key="CompareTemplate">
+                    <ToggleButton Name="tgCompareResult" Content="!" FontSize="10" Padding="0" Width="70" HorizontalAlignment="Center"
+                                  IsChecked="{Binding Synchronize}" TextBlock.Foreground="{StaticResource MainColor}"/>
+
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Result}" Value="Equal">
+                            <Setter TargetName="tgCompareResult" Property="Content" Value="="/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Result}" Value="LeftNewer">
+                            <Setter TargetName="tgCompareResult" Property="Content" Value=">"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Result}" Value="RightNewer">
+                            <Setter TargetName="tgCompareResult" Property="Content" Value="&gt;"/>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource ListViewHeaderStyle}">
+                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Left.Name}" Width="150"/>
+                    <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Left.Size}" Width="55"/>
+                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Left.LastModifiedTime, StringFormat={}{0:yyyy-MM-dd hh:mm:ss}}" Width="100"/>
+                    <GridViewColumn Header="Porównanie" CellTemplate="{StaticResource CompareTemplate}" Width="75"/>
+                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Right.LastModifiedTime, StringFormat={}{0:yyyy-MM-dd hh:mm:ss}}" Width="100"/>
+                    <GridViewColumn Header="Rozmiar" DisplayMemberBinding="{Binding Right.Size}" Width="55"/>
+                    <GridViewColumn Header="Nazwa" DisplayMemberBinding="{Binding Right.Name}" Width="150"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</elysium:Window>

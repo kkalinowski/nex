@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="nex.Controls.Preview.AudioVideoPreview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:lib12="http://schemas.kkalinowski.net/lib12"
+    Height="Auto" Width="Auto" VerticalAlignment="Center"
+    Name="_AudioVideoPreview">
+   
+    <UserControl.Resources>
+        <Storyboard x:Key="sbStory" SlipBehavior="Slip">
+            <MediaTimeline Storyboard.TargetName="meContent" CurrentTimeInvalidated="MediaTimeline_CurrentTimeInvalidated" 
+                           Source="{Binding ElementName=_AudioVideoPreview, Path=MediaPath}"/>
+        </Storyboard>       
+    </UserControl.Resources>
+    
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Video -->
+        <MediaElement Name="meContent" Grid.Row="0" LoadedBehavior="Manual" MediaOpened="meContent_MediaOpened" MediaEnded="meContent_MediaEnded"
+                      Visibility="{Binding ElementName=_AudioVideoPreview, Path=PlayingVideo, Converter={lib12:BoolToVisibilityConverter}}"
+                      Loaded="meContent_Loaded"/>
+        
+        <!-- Music -->
+        <Image Name="imgMusic" Grid.Row="0"
+               Visibility="{Binding ElementName=_AudioVideoPreview, Path=PlayingVideo, Converter={lib12:BoolToVisibilityConverter Negate=True}}"/>
+        
+        <Slider Name="sSeek" Grid.Row="1" ValueChanged="sSeek_ValueChanged" PreviewMouseLeftButtonDown="sSeek_PreviewMouseLeftButtonDown"
+                PreviewMouseLeftButtonUp="sSeek_PreviewMouseLeftButtonUp" IsMoveToPointEnabled="True" IsSnapToTickEnabled="False"/>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3">
+            <Button Name="bPlayPause" Click="bPlayPause_Click" Content="Play" Margin="1"/>
+            <Button Name="bStop" Click="bStop_Click" Content="Stop" Margin="1"/>
+            <Slider Name="sVolume" ValueChanged="sVolume_ValueChanged" Minimum="0" Maximum="1" Value="0.5" Width="75" Margin="5"/>        
+        </StackPanel>
+    </Grid>
+    
+</UserControl>
